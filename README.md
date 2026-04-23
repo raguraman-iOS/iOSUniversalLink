@@ -98,6 +98,19 @@ If previous steps fail, check for server restrictions:
    - Check if server is publicly accessible
    - Verify SSL certificate validity
 
+#### Real-World Case: Apple CDN Blocked by Geographic Firewall
+If your server only allows traffic from one country/region, Universal Links can still fail in production even for users in the allowed region.
+
+**Discussion outcome with Apple DTS:**
+- Apple does not provide a fixed IP allowlist for Universal Link validation.
+- Apple CDN and related verification requests can come from changing/global IP ranges.
+- Blocking by geography or restrictive user-agent/IP filtering can prevent AASA download and break Universal Links.
+- There is no alternative production method that avoids allowing global access to the AASA endpoint.
+- Recommended approach: allow public/global access at least for `/.well-known/apple-app-site-association`.
+
+**Apple Developer Forums discussion:**
+- https://developer.apple.com/forums/thread/806967
+
 ### 2. App Launches But Doesn't Receive Universal Link
 
 When your app opens but doesn't receive the Universal Link data, follow these debugging steps:
